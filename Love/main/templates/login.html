@@ -32,13 +32,13 @@
                     </div>
                 {% endif %}
                 <div>
-                    <label for="{{ login_form.username.id_for_label }}" class="mb-1 block text-xs font-semibold text-gray-600">Логін</label>
+                    <label for="{{ login_form.username.id_for_label }}" class="mb-1 block text-xs font-semibold text-gray-600">Логін це ти</label>
                     <input type="text" name="username" id="{{ login_form.username.id_for_label }}" autocomplete="username" required
                            value="{{ login_form.username.value|default:'' }}"
                            class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-rose-400 focus:outline-none">
                 </div>
                 <div>
-                    <label for="{{ login_form.password.id_for_label }}" class="mb-1 block text-xs font-semibold text-gray-600">Пароль</label>
+                    <label for="{{ login_form.password.id_for_label }}" class="mb-1 block text-xs font-semibold text-gray-600">Пароль дата початку стосунків</label>
                     <input type="password" name="password" id="{{ login_form.password.id_for_label }}" autocomplete="current-password" required
                            class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:border-rose-400 focus:outline-none">
                 </div>
