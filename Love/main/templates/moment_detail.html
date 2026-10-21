@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ moment.title }} 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-rose-50/50 text-gray-800">
+    <main class="mx-auto max-w-3xl px-4 py-8">
+        <a href="{% url 'moments_list' %}" class="mb-6 inline-flex items-center gap-2 text-sm font-medium text-rose-600 hover:text-rose-700">
+            <i class="fa-solid fa-arrow-left"></i>
+            Назад до спогадів
+        </a>
+        <a href="{% url 'comic_story' %}" class="mb-6 ml-4 inline-flex items-center gap-2 text-sm font-medium text-rose-600 hover:text-rose-700">
+            Комікс 📖
+        </a>
+
+        <article class="overflow-hidden rounded-3xl border border-rose-100 bg-white shadow-sm">
+            {% if moment.image %}
+                <img src="{{ moment.image.url }}" alt="{{ moment.title }}" class="max-h-[70vh] w-full bg-rose-50 object-contain">
+            {% elif not moment.photos.exists %}
+                <div class="flex h-56 items-center justify-center bg-rose-100 text-rose-300">
+                    <i class="fa-regular fa-image text-5xl"></i>
+                </div>
+            {% endif %}
+
+            <div class="space-y-6 p-6 md:p-8">
+                <header>
+                    <div class="mb-3 flex flex-wrap items-center gap-2 text-sm">
+                        <span class="rounded-full bg-rose-50 px-3 py-1 font-semibold text-rose-700">
+                            {{ moment.get_category_display }}
+                        </span>
+                        <span class="text-gray-500">{{ moment.date|date:"d.m.Y" }}</span>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800">{{ moment.title }}</h1>
+                </header>
+
+                <section>
+                    <h2 class="mb-2 text-sm font-semibold uppercase tracking-wide text-rose-500">Опис</h2>
+                    <p class="whitespace-pre-line leading-relaxed text-gray-700">{{ moment.description }}</p>
+                </section>
+
+                {% if moment.photos.all %}
+                    <section>
+                        <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-rose-500">Фото спогаду</h2>
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            {% for photo in moment.photos.all %}
+                                <img src="{{ photo.image.url }}" alt="Фото спогаду: {{ moment.title }}" class="max-h-[70vh] w-full rounded-2xl bg-rose-50 object-contain">
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+
+                <dl class="grid gap-4 border-t border-rose-100 pt-5 sm:grid-cols-2">
+                    <div>
+                        <dt class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Період</dt>
+                        <dd class="text-sm text-gray-700">{{ moment.get_period_display }}</dd>
+                    </div>
+                    {% if moment.location %}
+                        <div>
+                            <dt class="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-400">Місце</dt>
+                            <dd class="flex items-center gap-2 text-sm text-gray-700">
+                                <i class="fa-solid fa-location-dot text-rose-400"></i>
+                                {{ moment.location }}
+                            </dd>
+                        </div>
+                    {% endif %}
+                </dl>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

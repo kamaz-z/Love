@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Випадковий спогад 🎲</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-rose-50/50 text-gray-800 min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-white rounded-3xl overflow-hidden shadow-xl border border-rose-100 text-center p-6 relative">
+        <a href="{% url 'moments_list' %}" class="absolute top-4 left-4 text-gray-400 hover:text-rose-500">
+            <i class="fa-solid fa-arrow-left text-lg"></i>
+        </a>
+        <a href="{% url 'comic_story' %}" class="absolute right-4 top-4 text-sm text-rose-500 hover:text-rose-600">
+            Комікс 📖
+        </a>
+
+        <div class="mt-2 mb-4">
+            <span class="bg-rose-100 text-rose-600 font-semibold px-3 py-1 rounded-full text-xs">
+                🎲 А пам'ятаєш?
+            </span>
+        </div>
+
+        {% if random_moment %}
+            {% if random_moment.image %}
+                <img src="{{ random_moment.image.url }}" alt="{{ random_moment.title }}" class="w-full h-64 rounded-2xl bg-rose-50 object-contain mb-4 shadow-sm">
+            {% endif %}
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-1">{{ random_moment.title }}</h2>
+            <p class="text-xs text-rose-400 font-medium mb-3">{{ random_moment.date|date:"d E Y" }}</p>
+
+            <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">
+                "{{ random_moment.description }}"
+            </p>
+        {% else %}
+            <p class="text-gray-400 my-12">База даних поки порожня 💭</p>
+        {% endif %}
+
+        <!-- Кнопка згенерувати ще один -->
+        <a href="{% url 'random_moment' %}" class="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-xl font-medium shadow-md hover:shadow-lg transition">
+            <i class="fa-solid fa-dice"></i> Інший спогад
+        </a>
+    </div>
+
+</body>
+</html>

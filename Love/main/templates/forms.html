@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новий спогад 💌</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-rose-50/50 text-gray-800">
+    <main class="mx-auto max-w-3xl px-4 py-8">
+        <a href="{% url 'moments_list' %}" class="mb-6 inline-flex items-center gap-2 text-sm font-medium text-rose-600 hover:text-rose-700">
+            <i class="fa-solid fa-arrow-left"></i>
+            Назад до спогадів
+        </a>
+        <a href="{% url 'comic_story' %}" class="mb-6 ml-4 inline-flex items-center gap-2 text-sm font-medium text-rose-600 hover:text-rose-700">
+            Комікс 📖
+        </a>
+
+        <section class="rounded-3xl border border-rose-100 bg-white p-6 shadow-sm md:p-8">
+            <h1 class="mb-2 text-2xl font-bold text-gray-800">Додати новий спогад 💌</h1>
+            <p class="mb-6 text-sm text-gray-500">Збережіть особливий момент у вашій історії.</p>
+
+            {% if moment_form.non_field_errors %}
+                <div class="mb-4 rounded-xl bg-rose-50 p-3 text-sm text-rose-700">
+                    {{ moment_form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {% for field in moment_form %}
+                        <div class="{% if field.name == 'description' or field.name == 'image' or field.name == 'additional_images' %}md:col-span-2{% endif %}">
+                            <label for="{{ field.id_for_label }}" class="mb-1.5 block text-sm font-semibold text-gray-700">
+                                {{ field.label }}{% if field.field.required %} <span class="text-rose-500">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <p class="mt-1 text-sm text-rose-600">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="rounded-xl bg-rose-500 px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-rose-600">
+                    Зберегти спогад ✨
+                </button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

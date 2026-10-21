@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наша історія у коміксі 📖💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Підключення шрифту з ноткою рукописному стилю -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .comic-font { font-family: 'Caveat', cursive; }
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-amber-50/65 text-gray-800 min-h-screen">
+
+    <!-- Навігація -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-amber-100 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
+        <h1 class="text-2xl font-bold text-rose-500 flex items-center gap-2">
+            <i class="fa-solid font-bold fa-heart"></i> LoveDatabase
+        </h1>
+        <div class="flex gap-4 font-medium text-gray-600 text-sm">
+            <a href="{% url 'moments_list' %}" class="hover:text-rose-500 transition">Спогади</a>
+            <a href="{% url 'bucket_list' %}" class="hover:text-rose-500 transition">Банка Ідей 🫙</a>
+            <a href="{% url 'comic_story' %}" class="text-rose-500 font-bold transition">Комікс нашої історії 📖</a>
+        </div>
+    </nav>
+
+    <!-- Головний заголовок сторінки-коміксу -->
+    <header class="max-w-3xl mx-auto text-center my-10 px-4">
+        <span class="bg-rose-100 text-rose-600 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider inline-block mb-3">
+            ✨ Наш графічний роман
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800">Як усе починалося...</h2>
+        <p class="text-gray-500 mt-2 text-sm">Сторінка за сторінкою, кадр за кадром</p>
+    </header>
+
+    <!-- 📖 Стрічка коміксу (Timeline у вигляді панелей) -->
+    <main class="max-w-3xl mx-auto px-4 pb-20 space-y-12 relative">
+        
+        <!-- Лінія коміксу (поздовжня нитка, що з'єднує кадри) -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 top-4 bottom-4 w-1 bg-rose-200 hidden md:block"></div>
+
+        <!-- КАДР 1: Початок (Зліва) -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between">
+            <div class="w-full md:w-[46%] bg-white p-4 rounded-2xl shadow-md border-4 border-gray-800 transform md:-rotate-2 hover:rotate-0 transition duration-300">
+                <div class="relative overflow-hidden rounded-xl border-2 border-gray-800 mb-3 bg-rose-50 h-52">
+                    <!-- Замість тегу нижче буде {{ moment.image.url }} з БД -->
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Перша зустріч" class="w-full h-full object-cover">
+                    <span class="absolute top-2 left-2 bg-yellow-300 border-2 border-gray-800 text-gray-900 text-xs font-bold px-2 py-0.5 rounded shadow">Кадр 1 🎬</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">День нашого знайомства</h3>
+                <p class="comic-font text-2xl text-rose-600 mt-1">«А я й не думав, що звичайна кава змінить усе моє життя...»</p>
+                <div class="mt-3 text-right text-xs text-gray-400 font-bold">12.01.2024</div>
+            </div>
+            <!-- Точка на лінії для ПК -->
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-rose-500 border-4 border-white rounded-full items-center justify-center text-white text-xs font-bold shadow">1</div>
+            <div class="w-full md:w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- КАДР 2: Перше побачення (Справа) -->
+        <div class="relative flex flex-col md:flex-row-reverse items-center justify-between">
+            <div class="w-full md:w-[46%] bg-white p-4 rounded-2xl shadow-md border-4 border-gray-800 transform md:rotate-2 hover:rotate-0 transition duration-300">
+                <div class="relative overflow-hidden rounded-xl border-2 border-gray-800 mb-3 bg-rose-50 h-52">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Перше побачення" class="w-full h-full object-cover">
+                    <span class="absolute top-2 left-2 bg-pink-300 border-2 border-gray-800 text-gray-900 text-xs font-bold px-2 py-0.5 rounded shadow">Кадр 2 💬</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Прогулянка вечірнім містом</h3>
+                <p class="comic-font text-2xl text-rose-600 mt-1">«Ми говорили про все на світі і не помічали холоду.»</p>
+                <div class="mt-3 text-right text-xs text-gray-400 font-bold">18.01.2024</div>
+            </div>
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-rose-500 border-4 border-white rounded-full items-center justify-center text-white text-xs font-bold shadow">2</div>
+            <div class="w-full md:w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- КАДР 3: Кумедний момент / Домашній (Зліва) -->
+        <div class="relative flex flex-col md:flex-row items-center justify-between">
+            <div class="w-full md:w-[46%] bg-white p-4 rounded-2xl shadow-md border-4 border-gray-800 transform md:-rotate-1 hover:rotate-0 transition duration-300">
+                <div class="relative overflow-hidden rounded-xl border-2 border-gray-800 mb-3 bg-rose-50 h-52">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=600&q=80" alt="Смішний момент" class="w-full h-full object-cover">
+                    <span class="absolute top-2 left-2 bg-emerald-300 border-2 border-gray-800 text-gray-900 text-xs font-bold px-2 py-0.5 rounded shadow">Кадр 3 😹</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Кулінарна катастрофа</h3>
+                <p class="comic-font text-2xl text-rose-600 mt-1">«Піца згоріла, але зате яка весела була вечеря під доставку!»</p>
+                <div class="mt-3 text-right text-xs text-gray-400 font-bold">05.02.2024</div>
+            </div>
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-rose-500 border-4 border-white rounded-full items-center justify-center text-white text-xs font-bold shadow">3</div>
+            <div class="w-full md:w-[46%] hidden md:block"></div>
+        </div>
+
+        <!-- Блок динамічного виведення з Django (коли підключите бекенд) -->
+        <!-- 
+        {% for moment in comic_moments %}
+        <div class="relative flex flex-col md:flex-row items-center justify-between">
+            <div class="w-full md:w-[46%] bg-white p-4 rounded-2xl shadow-md border-4 border-gray-800">
+                <div class="relative overflow-hidden rounded-xl border-2 border-gray-800 mb-3 h-52">
+                    <img src="{{ moment.image.url }}" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">{{ moment.title }}</h3>
+                <p class="comic-font text-2xl text-rose-600 mt-1">«{{ moment.description }}»</p>
+                <div class="mt-3 text-right text-xs text-gray-400 font-bold">{{ moment.date|date:"d.m.Y" }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        -->
+
+    </main>
+
+</body>
+</html>

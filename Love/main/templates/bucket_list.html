@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Банка Ідей 🫙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-rose-50/50 text-gray-800 min-h-screen">
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <div class="mb-4 flex flex-wrap items-center gap-4">
+            <a href="{% url 'moments_list' %}" class="text-rose-500 font-medium text-sm">&larr; Назад до моментів</a>
+            <a href="{% url 'comic_story' %}" class="text-rose-500 font-medium text-sm hover:text-rose-600">Комікс 📖</a>
+        </div>
+        
+        <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-rose-100">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+                🫙 Банка Ідей для Побачень
+            </h2>
+            <p class="text-gray-500 text-sm mb-6">Список речей, які ми хочемо спробувати разом!</p>
+
+            {% if messages %}
+                <div class="mb-4 space-y-2" role="alert">
+                    {% for message in messages %}
+                        <p class="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'add_bucket_item' %}" method="POST" class="mb-8 rounded-2xl bg-rose-50/70 p-4">
+                {% csrf_token %}
+                <label for="bucket-item-title" class="mb-2 block text-sm font-semibold text-gray-700">
+                    Нова ідея для побачення
+                </label>
+                <div class="flex flex-col gap-2 sm:flex-row">
+                    <input id="bucket-item-title" type="text" name="title" maxlength="255"
+                           placeholder="Наприклад: Пікнік на даху при свічках..." required
+                           class="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm focus:border-rose-400 focus:outline-none">
+                    <button type="submit" class="rounded-xl bg-rose-500 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-rose-600">
+                        Додати ідею ✨
+                    </button>
+                </div>
+            </form>
+
+            <div class="space-y-3">
+                {% for item in bucket_items %}
+                <div class="flex items-center justify-between p-4 rounded-xl border {% if item.is_completed %}bg-gray-50 border-gray-100 text-gray-400 line-through{% else %}bg-white border-rose-100 text-gray-700 shadow-sm{% endif %}">
+                    <div class="flex items-center gap-3">
+                        <form action="{% url 'toggle_bucket_item' item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" aria-label="{% if item.is_completed %}Позначити ідею невиконаною{% else %}Позначити ідею виконаною{% endif %}" class="text-xl text-rose-500 transition hover:scale-110">
+                                {% if item.is_completed %}
+                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-circle text-gray-300 hover:text-rose-400"></i>
+                                {% endif %}
+                            </button>
+                        </form>
+                        <span class="font-medium text-sm">{{ item.title }}</span>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-gray-400 py-6 text-sm">Банка порожня. Додайте першу ідею!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
